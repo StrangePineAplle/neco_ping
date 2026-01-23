@@ -61,11 +61,7 @@ except Exception as e:
     send(token, uid, f"Nyooo! Training failed: {e} 😿")
     raise e
 ```
-
-
 ---
 
 *Made with love, 🐟 and Python.*
-
-```
 
