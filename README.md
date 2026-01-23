@@ -15,3 +15,57 @@ Install it via pip (once I publish it, nya!):
 
 ```bash
 pip install neco_ping
+```
+
+
+## 🚀 Usage
+
+It's super simple. Just import and send.
+
+```python
+from neco_ping import send
+
+# Your secret stuff (shhh!)
+BOT_TOKEN = "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+MY_CHAT_ID = "123456789"
+
+# ... doing heavy math ...
+# ... waiting for GPU to go brrr ...
+
+# Send a message when done!
+send(BOT_TOKEN, MY_CHAT_ID, "Master, the training is complete! Accuracy: 99.9% Nya! 😻")
+```
+
+
+## 🛠 Features
+
+- **Zero configuration**: Just pass the token and ID.
+- **Fail-safe**: Wraps everything in a broad try-except block. It will never raise an exception, ensuring your script finishes even if the message fails.
+- **Sync \& Simple**: Uses `requests` under the hood. No `asyncio` headache for simple scripts.
+- **Cute**: Verified to increase model accuracy by 0.00% (statistically insignificant, but spiritually powerful).
+
+
+## 📝 Example for Jupyter Notebook
+
+```python
+# Cell 1
+from neco_ping import send
+token = "..."
+uid = "..."
+
+# Cell 2 (The heavy one)
+try:
+    model.fit(X_train, y_train, epochs=100)
+    send(token, uid, "Training success! Time for Chocola! 🍫")
+except Exception as e:
+    send(token, uid, f"Nyooo! Training failed: {e} 😿")
+    raise e
+```
+
+
+---
+
+*Made with love, 🐟 and Python.*
+
+```
+
