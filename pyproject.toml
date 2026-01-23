@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "neco_ping"  # <--- ВАЖНО: Имя должно быть уникальным на PyPI!
-version = "0.0.1"
+name = "neco_ping"  
+version = "0.0.2"
 authors = [
   { name="Alien Catboy", email="neco_arc@burunyuu.com" },
 ]
@@ -21,7 +21,7 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/StrangePineAplle/neco_ping"  # Опционально
+"Homepage" = "https://github.com/StrangePineAplle/neco_ping" 
 
 [tool.setuptools.packages.find]
 where = ["src"]
