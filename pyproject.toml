@@ -3,13 +3,25 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "neco_ping"
-version = "0.1.0"
-description = "Minimalistic Telegram notifier for ML pipelines nya"
-dependencies = [
-  "requests"
+name = "neco_ping"  # <--- ВАЖНО: Имя должно быть уникальным на PyPI!
+version = "0.0.1"
+authors = [
+  { name="neco", email="lololo y dont know" },
 ]
+description = "Minimalistic silent Telegram notifier for ML pipelines"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache 2.0 License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "requests"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/StrangePineAplle/neco_ping"  # Опционально
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
