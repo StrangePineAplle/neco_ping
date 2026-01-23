@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "neco_ping"  # <--- ВАЖНО: Имя должно быть уникальным на PyPI!
 version = "0.0.1"
 authors = [
-  { name="neco", email="lololo y dont know" },
+  { name="Alien Catboy", email="neco_arc@burunyuu.com" },
 ]
 description = "Minimalistic silent Telegram notifier for ML pipelines"
 readme = "README.md"
