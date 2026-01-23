@@ -9,7 +9,7 @@ def send(token: str, chat_id: str, text: str) -> None:
     try:
         requests.post(
             url=f'https://api.telegram.org/bot{token}/sendMessage',
-            data={'chat_id': chat_id, 'text': text + "\n nay😽"},
+            data={'chat_id': chat_id, 'text': text + "\n nya😽"},
             timeout=5  # Тайм-аут, чтобы обучение не висело, если телега лежит
         )
     except Exception:
