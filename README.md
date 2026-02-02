@@ -65,3 +65,18 @@ except Exception as e:
 
 *Made with love, 🐟 and Python.*
 
+---
+
+## Commit message rules (for auto-versioning)
+
+We use **Conventional Commits** so the release tool can decide how to bump the version automatically. [web:99]
+
+### Version bumps
+
+- Patch (`1.0.0 -> 1.0.1`): use `fix:` for bugfixes and small corrections.  
+  Example: `fix: add retry for telegram send`
+
+- Minor (`1.0.0 -> 1.1.0`): use `feat:` for new features or new public functions.  
+  Example: `feat: add send_markdown helper`
+
+- Major (`1.0.0 -> 2.0.0`): mark breaking changes with `feat!` in the type/scope, or add a `BREAKING CHANGE:` footer.
