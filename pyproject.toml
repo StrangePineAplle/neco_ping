@@ -25,3 +25,8 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.semantic_release]
+branch = "main"
+version_toml = ["pyproject.toml:project.version"]
+
