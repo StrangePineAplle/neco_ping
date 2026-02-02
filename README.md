@@ -73,6 +73,8 @@ We use **Conventional Commits** so the release tool can decide how to bump the v
 
 ### Version bumps
 
+- No release: dont use prefixes
+
 - Patch (`1.0.0 -> 1.0.1`): use `fix:` for bugfixes and small corrections.  
   Example: `fix: add retry for telegram send`
 
