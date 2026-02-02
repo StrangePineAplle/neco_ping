@@ -6,11 +6,7 @@ on:
 
 jobs:
   release:
-    # чтобы не уйти в бесконечный цикл на коммитах самого github-actions[bot]
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write   # нужно, чтобы пушить bump-commit и теги
     steps:
       - uses: actions/checkout@v4
         with:
@@ -20,20 +16,43 @@ jobs:
         with:
           python-version: "3.x"
 
-      - run: |
+      - name: Install tools
+        run: |
           python -m pip install --upgrade pip
           pip install python-semantic-release build
 
+      - name: Decide if release is needed
+        id: rel
+        shell: bash
+        run: |
+          CUR="$(python - <<'PY'
+          import re, pathlib
+          s = pathlib.Path("pyproject.toml").read_text(encoding="utf-8")
+          print(re.search(r'(?m)^version\\s*=\\s*"([^"]+)"\\s*$', s).group(1))
+          PY
+          )"
+          NEXT="$(semantic-release version --print)"
+          echo "current=$CUR" >> "$GITHUB_OUTPUT"
+          echo "next=$NEXT" >> "$GITHUB_OUTPUT"
+          if [ "$NEXT" = "$CUR" ]; then
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Bump version + tag
+        if: steps.rel.outputs.release == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          semantic-release version
+        run: semantic-release version
 
       - name: Build
+        if: steps.rel.outputs.release == 'true'
         run: python -m build
 
       - name: Publish to PyPI
+        if: steps.rel.outputs.release == 'true'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
+
