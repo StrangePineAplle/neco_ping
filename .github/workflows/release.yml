@@ -6,12 +6,16 @@ on:
 
 jobs:
   release:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-python@v5
         with:
@@ -29,10 +33,7 @@ jobs:
           python - <<'PY'
           import os, pathlib, subprocess, tomllib
 
-          data = tomllib.loads(pathlib.Path("pyproject.toml").read_text(encoding="utf-8"))
-          cur = data["project"]["version"]
-
-          # Note: if no release will be made, --print outputs the current version. [web:87]
+          cur = tomllib.loads(pathlib.Path("pyproject.toml").read_text("utf-8"))["project"]["version"]
           nxt = subprocess.check_output(["semantic-release", "version", "--print"], text=True).strip()
 
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
