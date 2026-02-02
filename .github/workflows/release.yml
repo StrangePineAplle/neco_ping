@@ -7,6 +7,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,20 +26,20 @@ jobs:
         id: rel
         shell: bash
         run: |
-          CUR="$(python - <<'PY'
-          import re, pathlib
-          s = pathlib.Path("pyproject.toml").read_text(encoding="utf-8")
-          print(re.search(r'(?m)^version\\s*=\\s*"([^"]+)"\\s*$', s).group(1))
+          python - <<'PY'
+          import os, pathlib, subprocess, tomllib
+
+          data = tomllib.loads(pathlib.Path("pyproject.toml").read_text(encoding="utf-8"))
+          cur = data["project"]["version"]
+
+          # Note: if no release will be made, --print outputs the current version. [web:87]
+          nxt = subprocess.check_output(["semantic-release", "version", "--print"], text=True).strip()
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+              f.write(f"current={cur}\n")
+              f.write(f"next={nxt}\n")
+              f.write(f"release={'true' if nxt != cur else 'false'}\n")
           PY
-          )"
-          NEXT="$(semantic-release version --print)"
-          echo "current=$CUR" >> "$GITHUB_OUTPUT"
-          echo "next=$NEXT" >> "$GITHUB_OUTPUT"
-          if [ "$NEXT" = "$CUR" ]; then
-            echo "release=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "release=true" >> "$GITHUB_OUTPUT"
-          fi
 
       - name: Bump version + tag
         if: steps.rel.outputs.release == 'true'
@@ -55,4 +56,3 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
-
