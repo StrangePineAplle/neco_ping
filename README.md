@@ -69,7 +69,7 @@ except Exception as e:
 
 ## Commit message rules (for auto-versioning)
 
-We use **Conventional Commits** so the release tool can decide how to bump the version automatically. [web:99]
+We use **Conventional Commits** so the release tool can decide how to bump the version automatically.
 
 ### Version bumps
 
